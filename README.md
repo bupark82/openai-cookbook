@@ -1,10 +1,10 @@
 # OpenAI Cookbook
 
-The OpenAI Cookbook shares example code for accomplishing common tasks with the [OpenAI API].
+OpenAI Cookbook은 [OpenAI API]로 일반적인 작업을 수행하기 위한 예제 코드를 공유합니다.
 
-To run these examples, you'll need an OpenAI account and API key ([create a free account][api signup]).
+이 예제를 실행하려면 OpenAI 계정과 API 키가 필요합니다([무료 계정 만들기][api 가입]).
 
-Most code examples are written in Python, though the concepts can be applied in any language.
+대부분의 코드 예제는 Python으로 작성되지만 개념은 모든 언어에 적용될 수 있습니다.
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=468576060&machine=basicLinux32gb&location=EastUs)
 
@@ -72,7 +72,7 @@ If there are examples or guides you'd like to see, feel free to suggest them on 
 
 [chatgpt]: https://chat.openai.com/
 [openai api]: https://openai.com/api/
-[api signup]: https://beta.openai.com/signup
+[api 가입]: https://beta.openai.com/signup
 [openai playground]: https://beta.openai.com/playground
 [openai documentation]: https://beta.openai.com/docs/introduction
 [openai community forum]: https://community.openai.com/top?period=monthly
