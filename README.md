@@ -56,27 +56,27 @@ OpenAI Cookbook은 [OpenAI API]로 일반적인 작업을 수행하기 위한 �
 
 ## Related resources
 
-Beyond the code examples here, you can learn about the [OpenAI API] from the following resources:
+여기에 있는 코드 예제 외에도 다음 리소스에서 [OpenAI API]에 대해 알아볼 수 있습니다.:
 
-- Experiment with [ChatGPT]
+- [ChatGPT]로 실험하기
 - Try out the API in the [OpenAI Playground]
-- Read about the API in the [OpenAI Documentation]
+- [OpenAI 문서]에서 API에 대해 읽어보세요.
 - Discuss the API in the [OpenAI Community Forum]
-- Look for help in the [OpenAI Help Center]
+- [OpenAI 도움말 센터]에서 도움을 받으세요.
 - See example prompts in the [OpenAI Examples]
 - Stay up to date with the [OpenAI Blog]
 
 ## Contributing
 
-If there are examples or guides you'd like to see, feel free to suggest them on the [issues page].
+보고 싶은 예제나 가이드가 있으면 [이슈 페이지]에 자유롭게 제안해 주세요.
 
 [chatgpt]: https://chat.openai.com/
 [openai api]: https://openai.com/api/
 [api 가입]: https://beta.openai.com/signup
 [openai playground]: https://beta.openai.com/playground
-[openai documentation]: https://beta.openai.com/docs/introduction
+[openai 문서]: https://beta.openai.com/docs/introduction
 [openai community forum]: https://community.openai.com/top?period=monthly
-[openai help center]: https://help.openai.com/en/
+[openai 도움말 센터]: https://help.openai.com/en/
 [openai examples]: https://beta.openai.com/examples
 [openai blog]: https://openai.com/blog/
-[issues page]: https://github.com/openai/openai-cookbook/issues
+[이슈 페이지]: https://github.com/openai/openai-cookbook/issues
