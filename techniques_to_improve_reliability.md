@@ -153,7 +153,7 @@ Summary:
 The text explains that statistics is a science that studies the variability, collection, organization, analysis, interpretation, and presentation of data, as well as the random process that generates them following the laws of probability.
  ```
 
- However, if we first ask the model to identify the language of the text, and then summarize the text, it becomes more reliable:
+ 그러나 먼저 모델에 텍스트의 언어를 식별하도록 요청한 다음 텍스트를 요약하면 더 신뢰할 수 있습니다.:
 
 ```text-davinci-002
 First, identify the language of the text. Second, summarize the text using the original language of the text. The summary should be one sentence long.
