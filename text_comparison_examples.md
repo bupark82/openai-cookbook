@@ -22,7 +22,7 @@
 * 검색 전(사전 계산):
   * 텍스트 말뭉치를 토큰 제한보다 작은 청크로 분할(`text-embedding-ada-002`의 경우 8,191 토큰)
   * 각 텍스트 청크 포함
-  * 해당 임베딩을 자체 데이터베이스 또는 [Pinecone](https://www.pinecone.io), [Weaviate](https://weaviate.io) 또는 [Qdrant](https:/와 같은 벡터 검색 공급자에 저장합니다. /qdrant.tech)
+  * 해당 임베딩을 자체 데이터베이스 또는 [Pinecone](https://www.pinecone.io), [Weaviate](https://weaviate.io) 또는 [Qdrant](https://qdrant.tech)와 같은 벡터 검색 공급자에 저장합니다. 
 * 검색 시(라이브 컴퓨트):
   * 검색어 삽입
   * 데이터베이스에서 가장 가까운 임베딩 찾기
