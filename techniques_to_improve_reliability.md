@@ -187,7 +187,7 @@ La estadística es una ciencia que estudia la variabilidad, colección, organiza
 
 #### 결과
 
-이 간단한 트릭을 MultiArith 수학 데이터 세트에 적용하면 저자는 '단계별로 생각하자'가 정확도를 18%에서 79%로 4배로 높인다는 사실을 발견했습니다!
+이 간단한 트릭을 MultiArith 수학 데이터 세트에 적용하면 저자는 `단계별로 생각하자`가 정확도를 18%에서 79%로 4배로 높인다는 사실을 발견했습니다!
 
 [![제로샷 추론 예시](images/zero-shot_reasoners_tab5.png)
 <br>출처: *Large Language Models are Zero-Shot Reasoners* Takeshi Kojima et al. (2022).](https://arxiv.org/abs/2205.11916)
@@ -244,7 +244,7 @@ Because the Toyota Prius Prime meets all of the criteria for a federal tax credi
 
 #### 방법
 
-모델이 답을 추론하도록 유도하는 방법은 여러 가지가 있습니다. 한 가지 방법은 몇 가지 예('few-shot')로 시연하는 것입니다. [Google에서 Jason Wei와 Denny Zhou et al.](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html)등이 연구했습니다. 다음은 몇 번의 생각 사슬 프롬프트의 예입니다.
+모델이 답을 추론하도록 유도하는 방법은 여러 가지가 있습니다. 한 가지 방법은 몇 가지 예(`few-shot`)로 시연하는 것입니다. [Google에서 Jason Wei와 Denny Zhou et al.](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html)등이 연구했습니다. 다음은 몇 번의 생각 사슬 프롬프트의 예입니다.
 
 [![생각의 사슬 예시](images/chain_of_thought_fig1.png)
 <br>출처: *사고 유도 사슬은 대규모 언어 모델에서 추론을 유도합니다* Jason Wei 및 Denny Zhou 외. (2022)](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html)
@@ -326,7 +326,7 @@ Antonia Creswell 등이 발표한 사고 사슬 기술의 한 가지 확장은 �
 
 결과는 대규모 언어 모델 작업에 대한 몇 가지 일반적인 교훈을 강조합니다. 첫째, 복잡한 작업을 더 작은 작업으로 나누는 것은 안정성과 성능을 향상시키는 좋은 방법입니다. 작업이 원자적일수록 모델이 오류를 범할 여지가 줄어듭니다. 둘째, 최대 성능을 얻는 것은 종종 선택한 접근 방식과 미세 조정을 결합하는 것을 의미합니다.
 
-자세한 내용은 [전체 문서](https://arxiv.org/abs/2205.09712)를 참조하십시오.
+자세한 내용은 [전체 논문](https://arxiv.org/abs/2205.09712)를 참조하십시오.
 
 ### 충실한 추론 아키텍처
 
@@ -456,7 +456,7 @@ Least-to-Most 프롬프트는 추론 작업을 더 작고 더 신뢰할 수 있�
 
 복잡성 외에도 이 방법의 한 가지 제한은 객관식으로 제시될 수 있는 질문에만 적용되는 것으로 보인다는 것입니다.
 
-자세한 내용은 [전체 문서](https://arxiv.org/abs/2205.11822)를 참조하십시오.
+자세한 내용은 [전체 논문](https://arxiv.org/abs/2205.11822)를 참조하십시오.
 
 ## 확장
 
