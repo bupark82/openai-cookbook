@@ -1,20 +1,20 @@
-# Techniques to improve reliability
+# 신뢰성을 향상시키는 기술
 
-When GPT-3 fails on a task, what should you do?
+GPT-3가 작업에 실패하면 어떻게 해야 합니까?
 
-- Search for a better prompt that elicits more reliable answers?
-- Invest in thousands of examples to fine-tune a custom model?
-- Assume the model is incapable of the task, and move on?
+- 보다 신뢰할 수 있는 답변을 이끌어내는 더 나은 프롬프트를 찾고 계십니까?
+- 맞춤형 모델을 미세 조정하기 위해 수천 개의 예제에 투자하시겠습니까?
+- 모델이 작업을 수행할 수 없다고 가정하고 계속 진행합니까?
 
-There is no simple answer - it depends. However, if your task involves logical reasoning or complexity, consider trying the techniques in this article to build more reliable, high-performing prompts.
+간단한 답은 없습니다. 상황에 따라 다릅니다. 그러나 작업에 논리적 추론이나 복잡성이 포함된 경우 이 문서의 기술을 시도하여 보다 안정적이고 성능이 우수한 프롬프트를 작성하는 것이 좋습니다.
 
-## Why GPT-3 fails on complex tasks
+## 복잡한 작업에서 GPT-3가 실패하는 이유
 
-If you were asked to multiply 13 by 17, would the answer pop immediately into your mind? For most of us, probably not. Yet, that doesn't mean humans are incapable of two-digit multiplication. With a few seconds, and some pen and paper, it's not too taxing to work out that 13 x 17 = 130 + 70 + 21 = 221.
+13에 17을 곱하라는 요청을 받으면 즉시 답이 떠오를까요? 우리 대부분은 그렇지 않을 것입니다. 그렇다고 해서 인간이 두 자릿수 곱셈을 할 수 없다는 의미는 아닙니다. 몇 초, 약간의 펜과 종이만 있으면 13 x 17 = 130 + 70 + 21 = 221이라는 것을 계산하는 것이 어렵지 않습니다.
 
-Similarly, if you give GPT-3 a task that's too complex to do in the time it takes to calculate its next token, it may confabulate an incorrect guess. Yet, akin to humans, that doesn't necessarily mean the model is incapable of the task. With some time and space to reason things out, the model still may be able to answer reliably.
+마찬가지로 GPT-3에게 다음 토큰을 계산하는 데 걸리는 시간에 수행하기에는 너무 복잡한 작업을 제공하면 잘못된 추측을 만들 수 있습니다. 그러나 인간과 마찬가지로 이것이 반드시 모델이 작업을 수행할 수 없다는 것을 의미하지는 않습니다. 문제를 추론할 시간과 공간이 있으면 모델이 여전히 안정적으로 대답할 수 있습니다.
 
-As an example, if you ask `text-davinci-002` the following math problem about juggling balls, it answers incorrectly:
+예를 들어 `text-davinci-002`에 다음과 같은 저글링 공에 대한 수학 문제를 묻는 경우 잘못 대답합니다.:
 
 ```text-davinci-002
 Q: A juggler has 16 balls. Half of the balls are golf balls and half of the golf balls are blue. How many blue golf balls are there?
@@ -40,31 +40,31 @@ Half of the golf balls are blue.
 That means that there are 4 blue golf balls.
 ```
 
-Of course, it's hard to tell from only a single example whether this `Let's think step by step` trick actually works in general or just got lucky on this particular problem. But it really does work. On a benchmark of word math problems, the `Let's think step by step` trick raised GPT-3's solve rate massively, from a worthless 18% to a decent 79%!
+물론 이 `단계별로 생각하자` 트릭이 실제로 일반적으로 작동하는지 또는 이 특정 문제에 대해 운이 좋은지 단 하나의 예만으로 구분하기는 어렵습니다. 하지만 정말 효과가 있습니다. 단어 수학 문제의 벤치마크에서 `차근차근 생각해보자` 트릭은 GPT-3의 해결률을 18%에서 79%로 엄청나게 높였습니다!
 
-## Model capabilities depend on context
+## 모델 기능은 컨텍스트에 따라 다릅니다.
 
-When learning to work with GPT-3, one common conceptual mistake is to believe that its capabilities are fixed across all contexts. E.g., if GPT-3 gets a simple logic question wrong, then it must be incapable of simple logic.
+GPT-3으로 작업하는 방법을 배울 때 흔히 발생하는 개념적 실수 중 하나는 GPT-3의 기능이 모든 컨텍스트에서 고정되어 있다고 믿는 것입니다. 예를 들어, GPT-3가 간단한 논리 질문을 잘못 받으면 간단한 논리를 할 수 없음에 틀림없다.
 
-But as the `Let's think step by step` example illustrates, apparent failures of GPT-3 can sometimes be remedied with a better prompt that helps the model steer itself toward the correct output.
+그러나 '단계적으로 생각하자' 예에서 알 수 있듯이 GPT-3의 명백한 오류는 때때로 모델이 올바른 출력을 향해 스스로를 조종하는 데 도움이 되는 더 나은 프롬프트로 해결할 수 있습니다.
 
-## How to improve reliability on complex tasks
+## 복잡한 작업의 안정성을 향상시키는 방법
 
-The rest of this article shares techniques for improving reliability of large language models on complex tasks. Although some of the techniques are specific to certain types of problems, many of them are built upon general principles that can be applied to a wide range of tasks, e.g.:
+이 문서의 나머지 부분에서는 복잡한 작업에서 대규모 언어 모델의 안정성을 개선하는 기술을 공유합니다. 일부 기술은 특정 유형의 문제에만 적용되지만 대부분은 다음과 같이 광범위한 작업에 적용할 수 있는 일반 원칙을 기반으로 합니다, 예제,:
 
-- Give clearer instructions
-- Split complex tasks into simpler subtasks
-- Structure the instruction to keep the model on task
-- Prompt the model to explain before answering
-- Ask for justifications of many possible answers, and then synthesize
-- Generate many outputs, and then use the model to pick the best one
-- Fine-tune custom models to maximize performance
+- 더 명확한 지침을 제공합니다.
+- 복잡한 작업을 더 간단한 하위 작업으로 분할
+- 모델이 작업을 계속할 수 있도록 지침을 구조화합니다.
+- 대답하기 전에 모델에게 설명을 요청하십시오.
+- 가능한 많은 답변에 대한 근거를 묻고 종합합니다.
+- 많은 출력을 생성한 다음 모델을 사용하여 최상의 출력을 선택합니다.
+- 맞춤형 모델을 미세 조정하여 성능 극대화
 
-## Split complex tasks into simpler tasks
+## 복잡한 작업을 간단한 작업으로 나누기
 
-One way to give a model more time and space to think is to break tasks into simpler pieces.
+모델에게 생각할 시간과 공간을 더 많이 주는 한 가지 방법은 작업을 더 간단한 조각으로 나누는 것입니다.
 
-As an example, consider a task where we ask the model a multiple-choice question about some text - in this case, a game of Clue. When asked directly, `text-davinci-002` isn't able to put clues 3 & 5 together, and answers incorrectly:
+예를 들어 모델에게 일부 텍스트(이 경우 Clue 게임)에 대한 객관식 질문을 묻는 작업을 고려하십시오. 직접 질문을 하면 `text-davinci-002`는 단서 3과 5를 조합할 수 없으며 잘못된 대답을 합니다.:
  
 ```text-davinci-002
 Use the following clues to answer the following multiple-choice question.
@@ -88,13 +88,13 @@ Solution:
 (c) Unknown; there is not enough information to determine whether Colonel Mustard was in the observatory with the candlestick
 ```
  
-Although clues 3 and 5 establish that Colonel Mustard was the only person in the observatory and that the person in the observatory had the candlestick, the model fails to combine them into a correct answer of (a) Yes.
+단서 3과 5는 Mustard 대령이 천문대에 있는 유일한 사람이고 천문대에 있는 사람이 촛대를 가지고 있다는 것을 입증하지만, 모델은 그것들을 (a) 예라는 정답으로 결합하지 못합니다.
  
-However, instead of asking for the answer directly, we can split the task into three pieces:
+그러나 답을 직접 묻는 대신 작업을 세 부분으로 나눌 수 있습니다.:
  
-- First, go through the clues one by one and consider whether the clue is potentially relevant
-- Second, combine the relevant clues to reason out the answer to the question
-- Third, write the final answer: either (a), (b), or (c)
+- 먼저 단서를 하나씩 살펴보고 단서가 잠재적으로 관련이 있는지 고려하십시오.
+- 둘째, 관련 단서를 결합하여 질문에 대한 답변을 추론합니다.
+- 셋째, 최종 답변을 작성합니다: (a), (b) 또는 (c)
  
 ```text-davinci-002
 Use the following clues to answer the following multiple-choice question, using the following procedure:
@@ -132,11 +132,11 @@ Clue 3 and Clue 5 both say that the person with the candlestick was in the obser
 (a) Yes; Colonel Mustard was in the observatory with the candlestick
 ```
  
-By giving the model more time and space to think, and guiding it along a reasoning plan, it's able to figure out the correct answer of (a) Yes.
+모델에게 생각할 시간과 공간을 더 주고 추론 계획에 따라 안내함으로써 모델은 (a) 예라는 정답을 알아낼 수 있습니다.
 
-Another benefit of splitting complex instructions into smaller subtasks is that it can help keep the model focused on each subtask.
+복잡한 명령을 더 작은 하위 작업으로 분할하는 또 다른 이점은 모델이 각 하위 작업에 집중할 수 있도록 도와준다는 것입니다.
 
-For example, if we ask `text-davinci-002` to summarize a text in its original language, the model can lapse back into English:
+예를 들어 'text-davinci-002'에 텍스트를 원래 언어로 요약하도록 요청하면 모델이 다시 영어로 전환될 수 있습니다.:
 
 ```text-davinci-002
 Summarize the text using the original language of the text. The summary should be one sentence long.
@@ -172,36 +172,34 @@ Spanish
 La estadística es una ciencia que estudia la variabilidad, colección, organización, análisis, interpretación, y presentación de los datos, así como el proceso aleatorio que los genera siguiendo las leyes de la probabilidad.
 ```
 
-## Prompt the model to explain before answering
+## 대답하기 전에 모델에게 설명을 요청하십시오.
 
-Another powerful technique for improving the reliability of answers is to prompt the model to gradually reason out the answer rather than jumping immediately to the final answer. By 'thinking aloud' the model can be far more likely to arrive at the correct answer.
+답변의 신뢰성을 향상시키는 또 다른 강력한 기술은 모델이 최종 답변으로 즉시 이동하는 대신 점진적으로 답변을 추론하도록 유도하는 것입니다. '소리내어 생각'함으로써 모델은 정답에 도달할 가능성이 훨씬 더 높아질 수 있습니다.
 
-### Zero-shot
+### 제로샷
 
-#### Method
+#### 방법
 
-Published by [Takeshi Kojima et al. in 2022](https://arxiv.org/abs/2205.11916), the easiest way to prompt a model to reason out the answer is to simply prepend answers with `Let's think step by step.` Figure 2 illustrates an example:
+[Kojima Takeshi et al. in 2022](https://arxiv.org/abs/2205.11916) 모델이 답을 추론하도록 유도하는 가장 쉬운 방법은 단순히 '단계별로 생각해보자'를 답 앞에 추가하는 것입니다. 그림 2는 예를 보여줍니다.
 
-[![zero-shot reasoning example](images/zero-shot_reasoners_fig2.png)
-<br>Source: *Large Language Models are Zero-Shot Reasoners* by Takeshi Kojima et al. (2022).](https://arxiv.org/abs/2205.11916)
+[![제로샷 추론 예시](images/zero-shot_reasoners_fig2.png)
+<br>출처: *Large Language Models are Zero-Shot Reasoners* Takeshi Kojima et al. (2022).](https://arxiv.org/abs/2205.11916)
 
-#### Results
+#### 결과
 
-Applying this simple trick to the MultiArith math dataset, the authors found `Let's think step by step` quadrupled the accuracy, from 18% to 79%!
+이 간단한 트릭을 MultiArith 수학 데이터 세트에 적용하면 저자는 '단계별로 생각하자'가 정확도를 18%에서 79%로 4배로 높인다는 사실을 발견했습니다!
 
-[![zero-shot reasoning example](images/zero-shot_reasoners_tab5.png)
-<br>Source: *Large Language Models are Zero-Shot Reasoners* by Takeshi Kojima et al. (2022).](https://arxiv.org/abs/2205.11916)
+[![제로샷 추론 예시](images/zero-shot_reasoners_tab5.png)
+<br>출처: *Large Language Models are Zero-Shot Reasoners* Takeshi Kojima et al. (2022).](https://arxiv.org/abs/2205.11916)
 
-#### Implications
+#### 시사점
 
-Although the `Let's think step by step` trick works well on math problems, it's not effective on all tasks. The authors found that it was most helpful for multi-step arithmetic problems, symbolic reasoning problems, strategy problems, and other reasoning problems. It didn't help with simple math problems or common sense questions, and presumably wouldn't help with many other non-reasoning tasks either.
+[![제로샷 추론 예시](images/zero-shot_reasoners_tab1.png)
+<br>출처: *Large Language Models are Zero-Shot Reasoners* Takeshi Kojima et al. (2022).](https://arxiv.org/abs/2205.11916)
 
-[![zero-shot reasoning example](images/zero-shot_reasoners_tab1.png)
-<br>Source: *Large Language Models are Zero-Shot Reasoners* by Takeshi Kojima et al. (2022).](https://arxiv.org/abs/2205.11916)
+자세한 내용은 [전체 논문](https://arxiv.org/abs/2205.11916)를 참조하십시오.
 
-To learn more, read the [full paper](https://arxiv.org/abs/2205.11916).
-
-If you apply this technique to your own tasks, don't be afraid to experiment with customizing the instruction. `Let's think step by step` is rather generic, so you may find better performance with instructions that hew to a stricter format customized to your use case. For example, you can try more structured variants like `First, think step by step about why X might be true. Second, think step by step about why Y might be true. Third, think step by step about whether X or Y makes more sense.`. And you can even give the model an example format to help keep it on track, e.g.:
+이 기술을 자신의 작업에 적용하는 경우 지침을 사용자 지정하는 실험을 두려워하지 마십시오. `단계적으로 생각하자`는 다소 일반적이므로 사용 사례에 맞게 사용자 정의된 더 엄격한 형식을 따르는 지침으로 더 나은 성능을 찾을 수 있습니다. 예를 들어 `먼저 X가 참일 수 있는 이유에 대해 단계별로 생각하십시오. 둘째, Y가 참일 수 있는 이유에 대해 단계별로 생각하십시오. 셋째, X와 Y 중 어떤 것이 더 합리적인지 차근차근 생각해 보세요.`. 그리고 모델을 추적하는 데 도움이 되는 예제 형식을 제공할 수도 있습니다. 예를 들면 다음과 같습니다.:
 
 ```text-davinci-002
 Using the IRS guidance below, answer the following questions using this format:
@@ -242,52 +240,52 @@ Solution:
 Because the Toyota Prius Prime meets all of the criteria for a federal tax credit, the answer is likely yes.
 ```
 
-### Few-shot examples
+### 퓨샷 예
 
-#### Method
+#### 방법
 
-Prompting the model to reason out its answers can be done in many ways. One way is to demonstrate with a few examples ('few-shot'), as studied by [Jason Wei and Denny Zhou et al. from Google](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html). Here's an example few-shot chain-of-thought prompt:
+모델이 답을 추론하도록 유도하는 방법은 여러 가지가 있습니다. 한 가지 방법은 [Jason Wei와 Denny Zhou et al. Google에서](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html). 다음은 몇 번의 생각 사슬 프롬프트의 예입니다.
 
-[![chain of thought example](images/chain_of_thought_fig1.png)
-<br>Source: *Chain of Thought Prompting Elicits Reasoning in Large Language Models* Jason Wei and Denny Zhou et al. (2022)](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html)
+[![생각의 사슬 예시](images/chain_of_thought_fig1.png)
+<br>출처: *사고 유도 사슬은 대규모 언어 모델에서 추론을 유도합니다* Jason Wei 및 Denny Zhou 외. (2022)](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html)
 
-More demonstrations of reasoning chains written by human labelers:
+인간 라벨러가 작성한 추론 체인의 추가 데모:
 
-[![chain of thought example](images/chain_of_thought_fig3.png)
-<br>Source: *Chain of Thought Prompting Elicits Reasoning in Large Language Models* Jason Wei and Denny Zhou et al. (2022)](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html)
+[![생각의 사슬 예시](images/chain_of_thought_fig3.png)
+<br>출처: *사고 유도 사슬은 대규모 언어 모델에서 추론을 유도합니다* Jason Wei 및 Denny Zhou 외. (2022)](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html)
 
-[(Note that it has been called into question whether pears actually float)](https://twitter.com/Meaningness/status/1561062170074370048?s=20&t=mpHt8f3RRboztXxdhLFnWQ)
+[(배가 실제로 떠 있는지 여부에 대한 의문이 제기되었습니다.)](https://twitter.com/Meaningness/status/1561062170074370048?s=20&t=mpHt8f3RRboztXxdhLFnWQ)
 
-#### Results
+#### 결과
 
-Testing on grade school math problems, the authors found that chain of thought prompting tripled the solve rate, from 18% to 57%.
+초등학교 수학 문제를 테스트한 결과, 저자들은 일련의 생각 프롬프트가 해결률을 18%에서 57%로 세 배로 높인다는 사실을 발견했습니다.
 
-[![chain of thought example](images/chain_of_thought_fig5.png)
-<br>Source: *Chain of Thought Prompting Elicits Reasoning in Large Language Models* Jason Wei and Denny Zhou et al. (2022)](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html)
+[![생각의 사슬 예시](images/chain_of_thought_fig5.png)
+<br>출처: *사고 유도 사슬은 대규모 언어 모델에서 추론을 유도합니다* Jason Wei 및 Denny Zhou 외. (2022)](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html)
 
-In addition to math problems, chain of thought prompting also lifted performance on questions related to sports understanding, coin flip tracking, and last letter concatenation. In most cases, not many examples were need to saturate the performance gains (less than 8 or so).
+수학 문제 외에도 일련의 사고 프롬프트는 스포츠 이해, 동전 던지기 추적 및 마지막 문자 연결과 관련된 질문에 대한 성과를 높였습니다. 대부분의 경우 성능 향상을 포화시키는 데 필요한 예제가 많지 않았습니다(8 미만 정도).
 
-[![chain of thought example](images/chain_of_thought_fig11.png)
-<br>Source: *Chain of Thought Prompting Elicits Reasoning in Large Language Models* Jason Wei and Denny Zhou et al. (2022)](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html)
+[![생각의 사슬 예시](images/chain_of_thought_fig11.png)
+<br>출처: *사고 유도 사슬은 대규모 언어 모델에서 추론을 유도합니다* Jason Wei 및 Denny Zhou 외. (2022)](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html)
 
-To learn more, read the [full paper](https://arxiv.org/abs/2201.11903).
+자세한 내용은 [전체 논문](https://arxiv.org/abs/2201.11903)를 참조하십시오.
 
-#### Implications
+#### 시사점
 
-One advantage of the few-shot example-based approach relative to the `Let's think step by step` technique is that you can more easily specify the format, length, and style of reasoning that you want the model to perform before landing on its final answer. This can be particularly helpful in cases where the model isn't initially reasoning in the right way or depth.
+'단계적으로 생각하자' 기법과 비교하여 소수 예제 기반 접근 방식의 한 가지 장점은 모델이 최종 단계에 도달하기 전에 수행할 추론의 형식, 길이 및 스타일을 보다 쉽게 ​​지정할 수 있다는 것입니다. 답변. 이는 모델이 처음에 올바른 방식이나 깊이로 추론하지 않는 경우에 특히 유용할 수 있습니다.
 
-### Fine-tuned
+### 조율이 잘되어있는
 
-#### Method
+#### 방법
 
-In general, to eke out maximum performance on a task, you'll need to fine-tune a custom model. However, fine-tuning a model using explanations may take thousands of example explanations, which are costly to write.
+일반적으로 작업에서 최대 성능을 얻으려면 사용자 지정 모델을 미세 조정해야 합니다. 그러나 설명을 사용하여 모델을 미세 조정하려면 작성하는 데 비용이 많이 드는 수천 개의 예제 설명이 필요할 수 있습니다.
 
-In 2022, Eric Zelikman and Yuhuai Wu et al. published a clever procedure for using a few-shot prompt to generate a dataset of explanations that could be used to fine-tune a model. The idea is to use a few-shot prompt to generate candidate explanations, and only keep the explanations that produce the correct answer. Then, to get additional explanations for some of the incorrect answers, retry the few-shot prompt but with correct answers given as part of the question. The authors called their procedure STaR (Self-taught Reasoner):
+2022년 Eric Zelikman과 Yuhuai Wu et al. 모델을 미세 조정하는 데 사용할 수 있는 설명 데이터 세트를 생성하기 위해 몇 번의 프롬프트를 사용하는 영리한 절차를 게시했습니다. 아이디어는 몇 번의 프롬프트를 사용하여 후보 설명을 생성하고 정답을 생성하는 설명만 유지하는 것입니다. 그런 다음 일부 오답에 대한 추가 설명을 얻으려면 질문의 일부로 정답을 제공하면서 몇 번의 프롬프트를 다시 시도하십시오. 저자는 그들의 절차를 STaR(Self-taught Reasoner)라고 불렀습니다.
 
-[![STaR procedure](images/star_fig1.png)
-<br>Source: *STaR: Bootstrapping Reasoning With Reasoning* by Eric Zelikman and Yujuai Wu et al. (2022)](https://arxiv.org/abs/2203.14465)
+[![STaR 절차](images/star_fig1.png)
+<br>출처: *STaR: 추론을 통한 부트스트래핑 추론* 작성자: Eric Zelikman 및 Yujuai Wu 외. (2022)](https://arxiv.org/abs/2203.14465)
 
-With this technique, you can combine the benefits of fine-tuning with the benefits of chain-of-thought prompting without needing to write thousands of example explanations.
+이 기술을 사용하면 수천 개의 예제 설명을 작성할 필요 없이 미세 조정의 이점과 사고 사슬 프롬프트의 이점을 결합할 수 있습니다.
 
 #### Results
 
@@ -298,210 +296,210 @@ When the authors applied this technique to a Common Sense Q&A dataset, they foun
 
 To learn more, read the [full paper](https://arxiv.org/abs/2203.14465).
 
-#### Implications
+#### 시사점
 
-Using a few-shot prompt to extend or modify a fine-tuning dataset is an idea that can be generalized beyond explanation writing. For example, if you have large quantities of unstructured text that you want to train on, you may find opportunities to use a prompt to extract a structured dataset from your unstructured text, and then fine-tune a custom model on that structured dataset.
+미세 조정 데이터 세트를 확장하거나 수정하기 위해 몇 번의 프롬프트를 사용하는 것은 설명 작성을 넘어 일반화할 수 있는 아이디어입니다. 예를 들어 훈련하려는 구조화되지 않은 텍스트가 많은 경우 프롬프트를 사용하여 구조화되지 않은 텍스트에서 구조화 데이터 세트를 추출한 다음 해당 구조화 데이터 세트에서 사용자 지정 모델을 미세 조정할 기회를 찾을 수 있습니다.
 
-## Extensions to chain-of-thought prompting
+## 생각 사슬 프롬프트의 확장
 
-A number of extensions of chain-of-thought prompting have been published as well.
+일련의 사고 프롬프팅의 여러 확장도 게시되었습니다.
 
-### Selection-inference prompting
+### 선택 추론 프롬프트
 
-#### Method
+#### 방법
 
-Published by Antonia Creswell et al., one extension of the chain-of-thought technique is to split the single prompt for generating explanations and answers into smaller parts. First, a prompt selects a relevant subset of facts from the text ('selection prompt'). Then, a second prompt infers a conclusion from the selected facts ('inference prompt'). These prompts are then alternated in a loop to generate multiple steps of reasoning and eventually land on a final answer. The authors illustrate the idea in the following figure:
+Antonia Creswell 등이 발표한 사고 사슬 기술의 한 가지 확장은 설명과 답변을 생성하기 위한 단일 프롬프트를 더 작은 부분으로 분할하는 것입니다. 첫째, 프롬프트는 텍스트에서 관련 사실 하위 집합을 선택합니다('선택 프롬프트'). 그런 다음 두 번째 프롬프트가 선택된 사실에서 결론을 추론합니다('추론 프롬프트'). 그런 다음 이러한 프롬프트는 루프에서 번갈아 가며 여러 단계의 추론을 생성하고 결국 최종 답변에 도달합니다. 저자는 다음 그림에서 아이디어를 설명합니다.
 
-[![Selection-inference prompting](images/selection-inference_fig1.png)
-<br>Source: *Selection-Inference: Exploiting Large Language Models for Interpretable Logical Reasoning* by Antonia Creswell et al. (2022)](https://arxiv.org/abs/2205.09712)
+[![선택-추론 프롬프트](images/selection-inference_fig1.png)
+<br>출처: *선택-추론: 해석 가능한 논리적 추론을 위한 대규모 언어 모델 활용* 작성자: Antonia Creswell et al. (2022)](https://arxiv.org/abs/2205.09712)
 
-#### Results
+#### 결과
 
-When applied to a 7B-parameter model, the authors found that selection-inference prompting substantially improved performance relative to chain-of-thought prompting on the bAbi and Proof Writer benchmark tasks (both of which require longer sequences of reasoning steps). The best performance they achieved combined both selection-inference prompting with fine-tuning.
+7B-매개변수 모델에 적용했을 때 저자는 bAbi 및 Proof Writer 벤치마크 작업(둘 다 더 긴 추론 단계 시퀀스가 ​​필요함)에 대한 일련의 생각 프롬프트에 비해 성능이 상당히 향상되었음을 발견했습니다. 그들이 달성한 최고의 성능은 선택-추론 프롬프트와 미세 조정을 결합한 것입니다.
 
-[![Selection-inference prompting](images/selection-inference_fig4.png)
-<br>Source: *Selection-Inference: Exploiting Large Language Models for Interpretable Logical Reasoning* by Antonia Creswell et al. (2022)](https://arxiv.org/abs/2205.09712)
+[![선택-추론 프롬프트](images/selection-inference_fig4.png)
+<br>출처: *선택-추론: 해석 가능한 논리적 추론을 위한 대규모 언어 모델 활용* 작성자: Antonia Creswell et al. (2022)](https://arxiv.org/abs/2205.09712)
 
-#### Implications
+#### 시사점
 
-Although the gains on these benchmarks were large, these benchmarks were specifically chosen because they required longer sequences of reasoning. On problems that don't require reasoning with many steps, the gains are likely smaller.
+이러한 벤치마크의 이득은 컸지만, 이러한 벤치마크는 더 긴 추론 시퀀스가 ​​필요했기 때문에 특별히 선택되었습니다. 많은 단계의 추론이 필요하지 않은 문제에서는 이득이 더 적을 수 있습니다.
 
-The results highlight a couple of general lessons for working with large language models. One, splitting up complex tasks into smaller tasks is a great way to improve reliability and performance; the more atomic the task, the less room there is for the model to err. Two, getting maximum performance often means combining fine-tuning with whatever approach you've chosen.
+결과는 대규모 언어 모델 작업에 대한 몇 가지 일반적인 교훈을 강조합니다. 첫째, 복잡한 작업을 더 작은 작업으로 나누는 것은 안정성과 성능을 향상시키는 좋은 방법입니다. 작업이 원자적일수록 모델이 오류를 범할 여지가 줄어듭니다. 둘째, 최대 성능을 얻는 것은 종종 선택한 접근 방식과 미세 조정을 결합하는 것을 의미합니다.
 
-To learn more, read the [full paper](https://arxiv.org/abs/2205.09712).
+자세한 내용은 [전체 문서](https://arxiv.org/abs/2205.09712)를 참조하십시오.
 
-### Faithful reasoning architecture
+### 충실한 추론 아키텍처
 
-A few months after publishing the selection-inference prompting technique, the authors extended the technique in a follow-up paper, with ideas for:
+선택-추론 촉진 기법을 발표한 지 몇 달 후, 저자는 후속 논문에서 다음과 같은 아이디어로 기법을 확장했습니다.
 
-- figuring out when the selection-inference cycle should stop or continue
-- adding a value function to help search over multiple reasoning paths
-- reducing hallucination of fake facts by fine-tuning a model to reason about sentence labels (e.g., sen1) rather than writing out the sentences themselves
+- 선택-추론 주기가 언제 중단되거나 계속되어야 하는지 알아내기
+- 여러 추론 경로를 검색하는 데 도움이 되는 가치 함수 추가
+- 문장 자체를 작성하는 대신 문장 레이블(예: sen1)에 대해 추론하도록 모델을 미세 조정하여 가짜 사실의 환각을 줄입니다.
 
-#### Method
+#### 방법
 
-In the original selection-inference technique, specialized 'selection' and 'inference' prompts are alternated to select facts and make inferences from those facts, combining to generate a sequence of reasoning steps.
+원래의 선택-추론 기술에서는 특수한 '선택' 및 '추론' 프롬프트가 번갈아 가며 사실을 선택하고 이러한 사실로부터 추론을 수행하며 일련의 추론 단계를 생성하기 위해 결합됩니다.
 
-The authors extend this technique with two additional components.
+저자는 이 기술을 두 가지 추가 구성 요소로 확장합니다.
 
-First, the authors add a 'halter' model that, after each inference step, is asked whether the inferences thus far are sufficient to answer the question. If yes, then the model generates a final answer.
+첫째, 저자는 각 추론 단계 후에 지금까지의 추론이 질문에 답하기에 충분한지 묻는 '고지' 모델을 추가합니다. 그렇다면 모델이 최종 답변을 생성합니다.
 
-The halter models brings a couple of advantages:
+고삐 모델은 다음과 같은 몇 가지 이점을 제공합니다.
 
-- it can tell the selection-inference process to stop or keep going, as necessary.
-- if the process never halts, you'll get no answer, which is often preferable to a hallucinated guess
+- 필요에 따라 선택-추론 프로세스를 중지하거나 계속 진행하도록 지시할 수 있습니다.
+- 프로세스가 중단되지 않으면 답을 얻지 못할 것입니다. 이는 종종 환각적인 추측보다 선호됩니다.
 
-[![Faithful reasoning](images/faithful-reasoning_fig3.png)
-<br>Source: *Faithful Reasoning Using Large Language Models* by Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
+[![성실한 추론](images/faithful-reasoning_fig3.png)
+<br>출처: *대규모 언어 모델을 사용한 충실한 추론* 작성자: Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
 
-[![Faithful reasoning](images/faithful-reasoning_fig5.png)
-<br>Source: *Faithful Reasoning Using Large Language Models* by Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
+[![성실한 추론](images/faithful-reasoning_fig5.png)
+<br>출처: *대규모 언어 모델을 사용한 충실한 추론* 작성자: Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
 
-Second, the authors add a value function, which is used to assess the quality of reasoning steps and search over multiple reasoning trajectories. This echoes a common theme for increasing reliability; instead of generating a single answer from the model, generate a set of answers and then use some type of value function / discriminator / verifier model to pick the best one.
+둘째, 저자는 추론 단계의 품질을 평가하고 여러 추론 궤적을 검색하는 데 사용되는 가치 함수를 추가합니다. 이는 안정성 향상에 대한 공통 주제를 반영합니다. 모델에서 단일 답변을 생성하는 대신 일련의 답변을 생성한 다음 일부 유형의 가치 함수/판별자/검증자 모델을 사용하여 최상의 것을 선택합니다.
 
-[![Faithful reasoning](images/faithful-reasoning_fig7.png)
-<br>Source: *Faithful Reasoning Using Large Language Models* by Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
+[![성실한 추론](images/faithful-reasoning_fig7.png)
+<br>출처: *대규모 언어 모델을 사용한 충실한 추론* 작성자: Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
 
-In addition to these two extensions, the authors also use a trick to reduce hallucination of fake facts. Rather than asking the model to write out factual sentences, they fine-tune a model to work with sentence labels (e.g., sen1) instead. This helps prevent the model from hallucinating fake facts not mentioned in the prompt context.
+이 두 가지 확장 외에도 저자는 가짜 사실의 환각을 줄이기 위해 트릭을 사용합니다. 모델에게 사실에 입각한 문장을 작성하도록 요청하는 대신 문장 레이블(예: sen1)로 작업하도록 모델을 미세 조정합니다. 이렇게 하면 모델이 프롬프트 컨텍스트에서 언급되지 않은 가짜 사실을 환각하는 것을 방지할 수 있습니다.
 
-[![Faithful reasoning](images/faithful-reasoning_fig4.png)
-<br>Source: *Faithful Reasoning Using Large Language Models* by Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
+[![성실한 추론](images/faithful-reasoning_fig4.png)
+<br>출처: *대규모 언어 모델을 사용한 충실한 추론* 작성자: Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
 
-#### Results
+#### 결과
 
-The authors evaluated their technique on two benchmarks: the ProofWriter task (not shown) and [EntailmentBankQA](https://allenai.org/data/entailmentbank) (shown). The technique increased accuracy substantially, especially on harder reasoning problems.
+저자는 ProofWriter 작업(표시되지 않음) 및 [EntailmentBankQA](https://allenai.org/data/entailmentbank)(표시됨)의 두 가지 벤치마크에서 기술을 평가했습니다. 이 기술은 특히 더 어려운 추론 문제에서 정확도를 크게 높였습니다.
 
-![Faithful reasoning](images/faithful-reasoning_tab2.png)
-<br>Source: *Faithful Reasoning Using Large Language Models* by Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
+![성실한 추론](images/faithful-reasoning_tab2.png)
+<br>출처: *대규모 언어 모델을 사용한 충실한 추론* 작성자: Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
 
-In addition, their sentence label manipulation trick essentially eliminated hallucination!
+또한 그들의 문장 레이블 조작 트릭은 본질적으로 환각을 제거했습니다!
 
-![Faithful reasoning](images/faithful-reasoning_tab5.png)
-<br>Source: *Faithful Reasoning Using Large Language Models* by Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
+![성실한 추론](images/faithful-reasoning_tab5.png)
+<br>출처: *대규모 언어 모델을 사용한 충실한 추론* 작성자: Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
 
-#### Implications
+#### 시사점
 
-This paper illustrates a number of helpful lessons for improving the reliability of large language models:
+이 백서에서는 대규모 언어 모델의 안정성을 개선하는 데 도움이 되는 여러 가지 교훈을 설명합니다.
 
-- Split complex tasks into smaller, more reliable subtasks
-- Generate your answer in a step-by-step fashion, evaluating it along the way
-- Generate many possible answers and use another model or function to pick the ones that look best
-- Reduce hallucination by constraining what the model can say (e.g., by using sentence labels instead of sentences)
-- Maximize performance of models by fine-tuning them on specialized tasks
+- 복잡한 작업을 더 작고 안정적인 하위 작업으로 분할
+- 단계별 방식으로 답을 생성하고 그 과정에서 답을 평가합니다.
+- 가능한 답을 많이 생성하고 다른 모델이나 기능을 사용하여 가장 잘 보이는 답을 선택합니다.
+- 모델이 말할 수 있는 것을 제한하여 환각을 줄입니다(예: 문장 대신 문장 레이블 사용).
+- 특화된 작업에 따라 모델을 미세 조정하여 모델 성능 극대화
 
-To learn more, read the [full paper](https://arxiv.org/abs/2205.09712).
+자세한 내용은 [전체 문서](https://arxiv.org/abs/2205.09712)를 참조하십시오.
 
-### Least-to-most prompting
+### 최소에서 최대 프롬프트
 
-In addition to doing poorly on long reasoning chains (where selection-inference shines), chain-of-thought prompting can especially struggle when the examples are short but the task is long.
+긴 추론 사슬(선택-추론이 빛을 발하는 곳)에서 제대로 수행하지 못하는 것 외에도 생각 사슬 프롬프트는 예제가 짧지만 작업이 길 때 특히 어려움을 겪을 수 있습니다.
 
-#### Method
+#### 방법
 
-Least-to-most prompting is another technique that splits up reasoning tasks into smaller, more reliable subtasks. The idea is to elicit a subtask from the model by prompting it with something like `To solve {question}, we need to first solve: "`. Then, with that subtask in hand, the model can generate a solution. The solution is appended to the original question and the process is repeated until a final answer is produced.
+Least-to-Most 프롬프트는 추론 작업을 더 작고 더 신뢰할 수 있는 하위 작업으로 분할하는 또 다른 기술입니다. 아이디어는 `{question}을(를) 해결하려면 먼저 해결해야 합니다: "`와 같은 프롬프트를 통해 모델에서 하위 작업을 도출하는 것입니다. 그런 다음 해당 하위 작업을 통해 모델이 솔루션을 생성할 수 있습니다. 솔루션은 다음과 같습니다. 원래 질문에 추가되고 최종 답변이 생성될 때까지 프로세스가 반복됩니다.
 
-[![Least-to-most prompting](images/least-to-most_fig1.png)
-<br>Source: *Least-to-most Prompting Enables Complex Reasoning in Large Language Models* by Denny Zhou et al. (2022)](https://arxiv.org/abs/2205.10625)
+[![Least-to-most 프롬프트](images/least-to-most_fig1.png)
+<br>출처: *Least-to-Most Prompting Enables Complex Reasoning in Large Language Models* 작성자: Denny Zhou et al. (2022)](https://arxiv.org/abs/2205.10625)
 
-#### Results
+#### 결과
 
-When applied to benchmarks involving long reasoning chains using `code-davinci-002` (which is optimized for code but can still understand text), the authors measured gains as large as 16% -> 99.7%!
-
-[
-![Least-to-most prompting results on last-letter-concatenation task](images/least-to-most_tab4.png)
-![Least-to-most prompting results on SCAN](images/least-to-most_tab9.png)
-![Least-to-most prompting results on DROP numerical reasoning](images/least-to-most_tab11.png)
-<br>Source: *Least-to-most Prompting Enables Complex Reasoning in Large Language Models* by Denny Zhou et al. (2022)](https://arxiv.org/abs/2205.10625)
-
-#### Implications
-
-Although the above gains from least-to-most prompting are impressive, they are measured on a very narrow set of tasks that require long reasoning chains.
-
-Still, they illustrate a common theme: increase reliability by (a) breaking complex tasks into smaller subtasks and (b) giving the model more time and space to work out the answer.
-
-To learn more, read the [full paper](https://arxiv.org/abs/2205.10625).
-
-## Related ideas
-
-### Maieutic prompting
-
-#### Method
-
-In contrast to the previous techniques, which try to maximize the likelihood of correct answers, another approach is to use GPT-3 to generate a tree of possible explanations (both correct *and incorrect*), and then analyze their relationships to guess at which set is correct. This technique was coined maieutic prompting by [Jaehun Jung et al. in May 2022](https://arxiv.org/abs/2205.11822) (maieutic means relating to the Socratic method of asking questions to elicit ideas).
-
-The method is complicated, and works as follows:
-
-- First, build a maieutic tree, where each node is a statement that could be true or false:
-  - Start with a multiple-choice question or true/false statement (e.g. `War cannot have a tie`)
-  - For each possible answer to the question, use the model to generate a corresponding explanation (with a prompt like `War cannot have a tie? True, because`)
-  - Then, prompt the model with the question and the generated explanation, and ask it to produce the answer. If reversing the explanation (with a prefix like `It is wrong to say that {explanation}`) reverses the answer, then the explanation is considered 'logically integral.'
-  - If an explanation is not logically integral, then repeat the above process recursively, with each explanation turned into a True or False question, and generate more explanations for each new question.
-  - After all of the recursive explaining is done, you end up with a tree of explanations, where each leaf on the tree has the property that reversing the explanation reverses the model's answer.
-- Second, convert the tree into a graph of relations:
-  - For each node in the tree, calculate the model's relative belief in each node (inferred from the probability of getting an answer of `True` to given an explanation)
-  - For each pair of nodes in the tree, use the model to identify whether they are entailed (implied) or contradicted
-- Third, find the most consistent set of beliefs and take those to be true:
-  - Specifically, using the strength of belief in each node and the logical relationships between them, formulate the problem as a weighted maximum satisfiability problem (MAX-SAT)
-  - Use a solver to the find the most self-consistent set of beliefs, and take those as true
+코드에 최적화되어 있지만 여전히 텍스트를 이해할 수 있는 `code-davinci-002`를 사용하여 긴 추론 체인을 포함하는 벤치마크에 적용했을 때 작성자는 16% -> 99.7%의 이득을 측정했습니다!
 
 [
-  ![Maieutic prompting](images/maieutic_fig2.png)
-  ![Maieutic prompting](images/maieutic_fig6.png)
-<br>Source: *Maieutic Prompting: Logically Consistent Reasoning with Recursive Explanations* by Jaehun Jung et al. (2022)](https://arxiv.org/abs/2205.11822)
+![마지막 문자 연결 작업에 대한 Least-to-most 프롬프트 결과](images/least-to-most_tab4.png)
+![SCAN에서 Least-to-most 프롬프트 결과](images/least-to-most_tab9.png)
+![DROP 수치 추론에 대한 Least-to-most 프롬프트 결과](images/least-to-most_tab11.png)
+<br>출처: *Least-to-Most Prompting Enables Complex Reasoning in Large Language Models* 작성자: Denny Zhou et al. (2022)](https://arxiv.org/abs/2205.10625)
+
+#### 시사점
+
+최소에서 최대까지의 프롬프트에서 위의 이점이 인상적이지만 긴 추론 체인이 필요한 매우 좁은 작업 세트에서 측정됩니다.
+
+그럼에도 불구하고 공통 주제를 보여줍니다. (a) 복잡한 작업을 더 작은 하위 작업으로 나누고 (b) 답을 찾기 위해 모델에 더 많은 시간과 공간을 제공하여 안정성을 높입니다.
+
+자세한 내용은 [전체 문서](https://arxiv.org/abs/2205.10625)를 참조하십시오.
+
+## 관련 아이디어
+
+### 마이유틱 프롬팅
+
+#### 방법
+
+정답의 가능성을 최대화하려고 시도하는 이전 기술과 달리, 또 다른 접근 방식은 GPT-3을 사용하여 가능한 설명 트리(올바른 *및 오답* 모두)를 생성한 다음 관계를 분석하여 어떤 설명인지 추측하는 것입니다. 세트 맞습니다. 이 기법은 [Jaehun Jung et al. 2022년 5월](https://arxiv.org/abs/2205.11822) (마이유틱은 아이디어를 도출하기 위해 질문하는 소크라테스식 방법과 관련된 의미).
+
+이 방법은 복잡하며 다음과 같이 작동합니다.
+
+- 먼저, 각 노드가 참 또는 거짓일 수 있는 진술인 maieutic 트리를 구축합니다.
+  - 객관식 질문 또는 참/거짓 진술로 시작합니다(예: '전쟁은 비길 수 없습니다').
+  - 질문에 대한 각각의 가능한 대답에 대해 모델을 사용하여 해당 설명을 생성합니다(`전쟁은 동점일 수 없습니까? True, because`와 같은 프롬프트 사용).
+  - 그런 다음 질문과 생성된 설명으로 모델을 유도하고 답을 생성하도록 요청합니다. 설명을 뒤집으면(`{explanation}`과 같은 접두사를 사용하여) 답변이 뒤집히면 설명이 '논리적으로 통합'된 것으로 간주됩니다.
+  - 설명이 논리적으로 통합되지 않은 경우 각 설명이 참 또는 거짓 질문으로 바뀌면서 위의 과정을 재귀적으로 반복하고 각각의 새로운 질문에 대해 더 많은 설명을 생성합니다.
+  - 모든 재귀적 설명이 끝나면 설명 트리로 끝납니다. 여기서 트리의 각 리프에는 설명을 뒤집으면 모델의 대답이 뒤집히는 속성이 있습니다.
+- 둘째, 트리를 관계 그래프로 변환합니다.
+  - 트리의 각 노드에 대해 각 노드에 대한 모델의 상대적 신뢰도를 계산합니다(주어진 설명에 대해 'True' 응답을 얻을 확률에서 유추).
+  - 트리의 각 노드 쌍에 대해 모델을 사용하여 수반(암시) 또는 모순 여부를 식별합니다.
+- 셋째, 가장 일관된 믿음을 찾고 그것을 사실로 받아들입니다.
+  - 구체적으로 각 노드에 대한 믿음의 강도와 노드 간의 논리적 관계를 사용하여 문제를 가중 최대 만족 문제(MAX-SAT)로 공식화합니다.
+  - 솔버를 사용하여 가장 일관성 있는 신념 세트를 찾고 이를 사실로 받아들입니다.
+
+[
+  ![Maieutic 프롬프트](images/maieutic_fig2.png)
+  ![Maieutic 프롬프트](images/maieutic_fig6.png)
+<br>출처: *Maieutic Prompting: Logical Consistent Reasoning with Recursive Explanations* by 정재훈 외. (2022)](https://arxiv.org/abs/2205.11822)
 
 
-#### Results
+#### 결과
 
-[![Maieutic prompting results](images/maieutic_tab1.png)
-<br>Source: *Maieutic Prompting: Logically Consistent Reasoning with Recursive Explanations* by Jaehun Jung et al. (2022)](https://arxiv.org/abs/2205.11822)
+[![Maieutic 프롬프트 결과](images/maieutic_tab1.png)
+<br>출처: *Maieutic Prompting: Logical Consistent Reasoning with Recursive Explanations* by 정재훈 외. (2022)](https://arxiv.org/abs/2205.11822)
 
-#### Implications
+#### 시사점
 
-Beyond the complexity, one limitation of this method is that it appears to only apply to questions that can be posed as multiple-choice.
+복잡성 외에도 이 방법의 한 가지 제한은 객관식으로 제시될 수 있는 질문에만 적용되는 것으로 보인다는 것입니다.
 
-To learn more, read the [full paper](https://arxiv.org/abs/2205.11822).
+자세한 내용은 [전체 문서](https://arxiv.org/abs/2205.11822)를 참조하십시오.
 
-## Extensions
+## 확장
 
-### Self-consistency
+### 자기 일관성
 
-#### Method
+#### 방법
 
-For tasks with a discrete set of answers, one simple way to improve reliability is to sample multiple explanations & answers from the model (using a positive temperature) and then pick the final answer that appears most often.
+개별 답변 세트가 있는 작업의 경우 신뢰도를 향상시키는 한 가지 간단한 방법은 모델에서 여러 설명 및 답변을 샘플링한 다음(양의 온도 사용) 가장 자주 나타나는 최종 답변을 선택하는 것입니다.
 
-[![Self-consistency method](images/self-consistency_fig1.png)
-<br>Source: *Self-Consistency Improves Chain of Thought Reasoning in Language Models* by Xuezhi Wang et al. (2022)](https://arxiv.org/abs/2203.11171)
+[![자기 일관성 방법](images/self-consistency_fig1.png)
+<br>출처: *Self-Consistency Improves Chain of Thought Reasoning in Language Models* by Xuezhi Wang et al. (2022)](https://arxiv.org/abs/2203.11171)
 
-#### Results
+#### 결과
 
-This technique lifted accuracies by anywhere from 1 to 24 percentage points on a suite of math and reasoning benchmarks. (Plotted below are results from Google's LaMDA model; using Google's larger PaLM model, the baselines were higher but the gains were a bit smaller.)
+이 기술은 일련의 수학 및 추론 벤치마크에서 정확도를 1~24% 포인트 높였습니다. (아래 도표는 Google LaMDA 모델의 결과입니다. Google의 더 큰 PaLM 모델을 사용하면 기준선이 더 높았지만 이득은 약간 작았습니다.)
 
-[![Self-consistency results](images/self-consistency_fig3.png)
-<br>Source: *Self-Consistency Improves Chain of Thought Reasoning in Language Models* by Xuezhi Wang et al. (2022)](https://arxiv.org/abs/2203.11171)
+[![자체 일관성 결과](images/self-consistency_fig3.png)
+<br>출처: *Self-Consistency Improves Chain of Thought Reasoning in Language Models* by Xuezhi Wang et al. (2022)](https://arxiv.org/abs/2203.11171)
 
-#### Implications
+#### 시사점
 
-Although this technique is simple to implement, it can be costly. Generating a set of 10 answers will increase your costs by 10x.
+이 기술은 구현이 간단하지만 비용이 많이 들 수 있습니다. 10개의 답변 세트를 생성하면 비용이 10배 증가합니다.
 
-Also, as with many of these techniques, it applies only to tasks with a limited set of answers. For open-ended tasks where each answer is unique (such as writing a poem), it's not obvious what it would mean to pick the most common answer.
+또한 이러한 많은 기술과 마찬가지로 답이 제한된 작업에만 적용됩니다. 각 답변이 고유한 개방형 작업(예: 시 쓰기)의 경우 가장 일반적인 답변을 선택하는 것이 무엇을 의미하는지 명확하지 않습니다.
 
-Lastly, this technique ought to be most beneficial when there are multiple paths or phrasings to reach an answer; if there's only one path, then the technique may not help at all. An extreme example: If the task was to generate a single token answer, then taking the most common token from 100 generations would be no different than taking the token with the highest logprobs (which you can get with a single generation at temperature=0).
+마지막으로, 이 기술은 답변에 도달하기 위한 여러 경로나 구문이 있을 때 가장 유용해야 합니다. 경로가 하나뿐이면 기술이 전혀 도움이 되지 않을 수 있습니다. 극단적인 예: 작업이 단일 토큰 응답을 생성하는 것이라면 100세대에서 가장 일반적인 토큰을 가져오는 것은 가장 높은 logprobs(온도=0에서 단일 세대로 얻을 수 있음)가 있는 토큰을 가져오는 것과 다를 바 없습니다.
 
-### Verifiers
+### 검증자
 
-Another key technique for improving task performance is to train a verifier or discriminator model to evaluate the outputs of the main generative model. If the discriminator rejects the output, then you can resample the generative model until you get an acceptable output. In many cases, it's easier to judge an answer than it is to create an answer, which helps explain the power of this method.
+작업 성능을 개선하기 위한 또 다른 핵심 기술은 주요 생성 모델의 출력을 평가하기 위해 검증자 또는 판별자 모델을 훈련시키는 것입니다. 판별자가 출력을 거부하면 허용 가능한 출력을 얻을 때까지 생성 모델을 다시 샘플링할 수 있습니다. 많은 경우에 답을 만드는 것보다 답을 판단하는 것이 더 쉽기 때문에 이 방법의 힘을 설명하는 데 도움이 됩니다.
 
-#### Method
+#### 방법
 
-In 2021, OpenAI researchers applied this technique to grade school math problems, using the following procedure:
+2021년에 OpenAI 연구원은 다음 절차를 사용하여 이 기술을 초등학교 수학 문제에 적용했습니다.
 
-- First, they fine-tuned a model on questions and solutions
-- For each problem in the training set, they generated 100 solutions
-- Each of those 100 solutions was automatically labeled as either correct or incorrect, based on whether the final answer was correct
-- Using those solutions, with some labeled correct and some labeled incorrect, they fine-tuned a verifier model to classify whether a question and candidate solution was correct or incorrect
-- Finally, at test time, the generative model creates 100 solutions to each problem, and the one with the highest score according to the verifier model is picked as the final answer
+- 첫째, 그들은 질문과 해결책에 대한 모델을 미세 조정했습니다.
+- 훈련 세트의 각 문제에 대해 100개의 솔루션을 생성했습니다.
+- 100개의 솔루션 각각은 최종 답변이 올바른지 여부에 따라 자동으로 정답 또는 오답으로 분류되었습니다.
+- 이러한 솔루션을 사용하여 일부는 옳고 일부는 올바르지 않은 것으로 분류하여 검증자 모델을 미세 조정하여 질문 및 후보 솔루션이 올바른지 그른지를 분류했습니다.
+- 마지막으로 테스트 시간에 생성 모델이 각 문제에 대해 100개의 솔루션을 생성하고 검증자 모델에 따라 가장 높은 점수를 받은 것을 최종 답변으로 선택합니다.
 
-[![Verifier method](images/verifiers_fig3.png)
-<br>Source: *Training Verifiers to Solve Math Word Problems* by Karl Cobbe et al. (2021)](https://arxiv.org/abs/2110.14168)
+[![검증 방법](images/verifiers_fig3.png)
+<br>출처: *수학 단어 문제 해결을 위한 교육 검증기* by Karl Cobbe et al. (2021)](https://arxiv.org/abs/2110.14168)
 
 #### Results
 
@@ -510,52 +508,52 @@ With a 175B GPT-3 model and 8,000 training examples, this technique substantiall
 [![Verifier results](images/verifiers_fig5.png)
 <br>Source: *Training Verifiers to Solve Math Word Problems* by Karl Cobbe et al. (2021)](https://arxiv.org/abs/2110.14168)
 
-#### Implications
+#### 시사점
 
-Similar to the self-consistency technique, this method can get expensive, as generating, say, 100 solutions per task will increase your costs by roughly ~100x.
+자기 일관성 기술과 유사하게 이 방법은 작업당 100개의 솔루션을 생성하면 비용이 약 100배 증가하므로 비용이 많이 들 수 있습니다.
 
-## Theories of reliability
+## 신뢰성 이론
 
-Although the techniques above vary in their approach, they all share the goal of improving reliability on complex tasks. Mainly they do this by:
+위의 기술은 접근 방식이 다르지만 모두 복잡한 작업의 안정성을 개선한다는 목표를 공유합니다. 주로 다음을 수행합니다.:
 
-- decomposing unreliable operations into smaller, more reliable operations (e.g., selection-inference prompting)
-- using multiple steps or multiple relationships to make the system's reliability greater than any individual component (e.g., maieutic prompting)
+- 신뢰할 수 없는 작업을 더 작고 더 안정적인 작업으로 분해(예: 선택-추론 프롬프팅)
+- 여러 단계 또는 여러 관계를 사용하여 시스템의 신뢰성을 개별 구성 요소보다 크게 만듭니다(예: 기계 프롬프트).
 
-### Probabilistic graphical models
+### 확률 그래픽 모델
 
-This paradigm of trying to build a reliable system out of less reliable components is reminiscent of probabilistic programming, and many of the analysis techniques of that field can be applied to this one.
+덜 신뢰할 수 있는 구성 요소로 신뢰할 수 있는 시스템을 구축하려는 이러한 패러다임은 확률 프로그래밍을 연상시키며 해당 분야의 많은 분석 기술이 여기에 적용될 수 있습니다.
 
-In the paper *Language Model Cascades*, David Dohan et al. interpret the above techniques in the paradigm of probabilistic graphical models:
+논문 *Language Model Cascades*에서 David Dohan et al. 확률적 그래픽 모델의 패러다임에서 위의 기술을 해석합니다.:
 
-#### Chain of thought prompting
+#### 생각의 사슬
 
-[![graphical model of chain of thought prompting](images/lm_cascades_fig1.png)
-<br>Source: *Language Model Cascades* by David Dohan et al. (2022)](https://arxiv.org/abs/2207.10342)
+[![생각의 사슬에 대한 그래픽 모델](images/lm_cascades_fig1.png)
+<br>출처: David Dohan et al.의 *Language Model Cascades* (2022)](https://arxiv.org/abs/2207.10342)
 
-#### Fine-tuned chain of thought prompting / Self-taught reasoner
+#### 미세 조정된 사고 유도 사슬 / 독학으로 추론
 
-[![graphical model of fine-tuned chain of thought prompting](images/lm_cascades_fig3.png)
-<br>Source: *Language Model Cascades* by David Dohan et al. (2022)](https://arxiv.org/abs/2207.10342)
+[![미세 조정된 사고 프롬프트의 그래픽 모델](images/lm_cascades_fig3.png)
+<br>출처: David Dohan et al.의 *Language Model Cascades* (2022)](https://arxiv.org/abs/2207.10342)
 
-#### Selection-inference prompting
+#### 선택 추론 프롬프트
 
-[![graphical model of selection-inference prompting](images/lm_cascades_fig4.png)
-<br>Source: *Language Model Cascades* by David Dohan et al. (2022)](https://arxiv.org/abs/2207.10342)
+[![선택-추론 프롬프트의 그래픽 모델](images/lm_cascades_fig4.png)
+<br>출처: David Dohan et al.의 *Language Model Cascades* (2022)](https://arxiv.org/abs/2207.10342)
 
-#### Verifiers
+#### 검증자
 
-[![graphical model of verifiers](images/lm_cascades_fig5.png)
-<br>Source: *Language Model Cascades* by David Dohan et al. (2022)](https://arxiv.org/abs/2207.10342)
+[![검증기의 그래픽 모델](images/lm_cascades_fig5.png)
+<br>출처: David Dohan et al.의 *Language Model Cascades* (2022)](https://arxiv.org/abs/2207.10342)
 
-#### Implications
+#### 시사점
 
-Although formulating these techniques as probabilistic graphical models may not be immediately useful for solving any particular problem, the framework may be helpful in selecting, combining, and discovering new techniques.
+이러한 기술을 확률적 그래픽 모델로 공식화하는 것은 특정 문제를 해결하는 데 즉시 유용하지 않을 수 있지만 프레임워크는 새로운 기술을 선택, 결합 및 발견하는 데 도움이 될 수 있습니다.
 
-## Closing thoughts
+## 마무리 생각
 
-Research into large language models is very active and evolving rapidly. Not only do researchers continue to improve the models, they also continue to improve our understanding of how to best employ the models. To underscore the pace of these developments, note that all of the papers shared above were published within the past 12 months (as I write in Sep 2022).
+대규모 언어 모델에 대한 연구는 매우 활발하고 빠르게 발전하고 있습니다. 연구자들은 계속해서 모델을 개선할 뿐만 아니라 모델을 가장 잘 활용하는 방법에 대한 이해도 지속적으로 향상시킵니다. 이러한 발전 속도를 강조하기 위해 위에서 공유한 모든 논문은 지난 12개월 이내에 출판되었습니다(2022년 9월에 작성함).
 
-In the future, expect better models and better techniques to be published. Even if the specific techniques here are eclipsed by future best practices, the general principles behind them will likely remain a key part of any expert user's toolkit.
+앞으로 더 나은 모델과 더 나은 기술이 게시될 것으로 기대합니다. 여기에 있는 특정 기술이 미래의 모범 사례에 의해 가려지더라도 그 뒤에 있는 일반 원칙은 모든 전문 사용자 도구 키트의 핵심 부분으로 남을 것입니다.
 
 ## Bibliography
 
