@@ -136,7 +136,7 @@ Clue 3 and Clue 5 both say that the person with the candlestick was in the obser
 
 복잡한 명령을 더 작은 하위 작업으로 분할하는 또 다른 이점은 모델이 각 하위 작업에 집중할 수 있도록 도와준다는 것입니다.
 
-예를 들어 'text-davinci-002'에 텍스트를 원래 언어로 요약하도록 요청하면 모델이 다시 영어로 전환될 수 있습니다.:
+예를 들어 `text-davinci-002`에 텍스트를 원래 언어로 요약하도록 요청하면 모델이 다시 영어로 전환될 수 있습니다.:
 
 ```text-davinci-002
 Summarize the text using the original language of the text. The summary should be one sentence long.
@@ -174,13 +174,13 @@ La estadística es una ciencia que estudia la variabilidad, colección, organiza
 
 ## 대답하기 전에 모델에게 설명을 요청하십시오.
 
-답변의 신뢰성을 향상시키는 또 다른 강력한 기술은 모델이 최종 답변으로 즉시 이동하는 대신 점진적으로 답변을 추론하도록 유도하는 것입니다. '소리내어 생각'함으로써 모델은 정답에 도달할 가능성이 훨씬 더 높아질 수 있습니다.
+답변의 신뢰성을 향상시키는 또 다른 강력한 기술은 모델이 최종 답변으로 즉시 이동하는 대신 점진적으로 답변을 추론하도록 유도하는 것입니다. `소리내어 생각`함으로써 모델은 정답에 도달할 가능성이 훨씬 더 높아질 수 있습니다.
 
 ### 제로샷
 
 #### 방법
 
-[Kojima Takeshi et al. in 2022](https://arxiv.org/abs/2205.11916) 모델이 답을 추론하도록 유도하는 가장 쉬운 방법은 단순히 '단계별로 생각해보자'를 답 앞에 추가하는 것입니다. 그림 2는 예를 보여줍니다.
+[Kojima Takeshi et al. in 2022](https://arxiv.org/abs/2205.11916) 모델이 답을 추론하도록 유도하는 가장 쉬운 방법은 단순히 `단계별로 생각해보자`를 답 앞에 추가하는 것입니다. 그림 2는 예를 보여줍니다.
 
 [![제로샷 추론 예시](images/zero-shot_reasoners_fig2.png)
 <br>출처: *Large Language Models are Zero-Shot Reasoners* Takeshi Kojima et al. (2022).](https://arxiv.org/abs/2205.11916)
@@ -244,7 +244,7 @@ Because the Toyota Prius Prime meets all of the criteria for a federal tax credi
 
 #### 방법
 
-모델이 답을 추론하도록 유도하는 방법은 여러 가지가 있습니다. 한 가지 방법은 [Jason Wei와 Denny Zhou et al. Google에서](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html). 다음은 몇 번의 생각 사슬 프롬프트의 예입니다.
+모델이 답을 추론하도록 유도하는 방법은 여러 가지가 있습니다. 한 가지 방법은 몇 가지 예('few-shot')로 시연하는 것입니다. [Google에서 Jason Wei와 Denny Zhou et al.](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html)등이 연구했습니다. 다음은 몇 번의 생각 사슬 프롬프트의 예입니다.
 
 [![생각의 사슬 예시](images/chain_of_thought_fig1.png)
 <br>출처: *사고 유도 사슬은 대규모 언어 모델에서 추론을 유도합니다* Jason Wei 및 Denny Zhou 외. (2022)](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html)
@@ -272,7 +272,7 @@ Because the Toyota Prius Prime meets all of the criteria for a federal tax credi
 
 #### 시사점
 
-'단계적으로 생각하자' 기법과 비교하여 소수 예제 기반 접근 방식의 한 가지 장점은 모델이 최종 단계에 도달하기 전에 수행할 추론의 형식, 길이 및 스타일을 보다 쉽게 ​​지정할 수 있다는 것입니다. 답변. 이는 모델이 처음에 올바른 방식이나 깊이로 추론하지 않는 경우에 특히 유용할 수 있습니다.
+`단계적으로 생각하자` 기법과 비교하여 소수 예제 기반 접근 방식의 한 가지 장점은 모델이 최종 단계에 도달하기 전에 수행할 추론의 형식, 길이 및 스타일을 보다 쉽게 ​​지정할 수 있다는 것입니다. 답변. 이는 모델이 처음에 올바른 방식이나 깊이로 추론하지 않는 경우에 특히 유용할 수 있습니다.
 
 ### 조율이 잘되어있는
 
@@ -289,12 +289,12 @@ Because the Toyota Prius Prime meets all of the criteria for a federal tax credi
 
 #### Results
 
-When the authors applied this technique to a Common Sense Q&A dataset, they found that STaR outperformed both chain-of-thought prompting alone (73% > 37%) and fine-tuning alone (73% > 60%):
+저자는 이 기술을 Common Sense Q&A 데이터 세트에 적용한 후 STaR이 일련의 사고 프롬프트 단독(73% > 37%)과 미세 조정 단독(73% > 60%) 모두를 능가한다는 것을 발견했습니다.:
 
 [![STaR results](images/star_tab1.png)
 <br>Source: *STaR: Bootstrapping Reasoning With Reasoning* by Eric Zelikman and Yujuai Wu et al. (2022)](https://arxiv.org/abs/2203.14465)
 
-To learn more, read the [full paper](https://arxiv.org/abs/2203.14465).
+자세한 내용은 [전체 논문](https://arxiv.org/abs/2203.14465)를 참조하십시오.
 
 #### 시사점
 
@@ -308,7 +308,7 @@ To learn more, read the [full paper](https://arxiv.org/abs/2203.14465).
 
 #### 방법
 
-Antonia Creswell 등이 발표한 사고 사슬 기술의 한 가지 확장은 설명과 답변을 생성하기 위한 단일 프롬프트를 더 작은 부분으로 분할하는 것입니다. 첫째, 프롬프트는 텍스트에서 관련 사실 하위 집합을 선택합니다('선택 프롬프트'). 그런 다음 두 번째 프롬프트가 선택된 사실에서 결론을 추론합니다('추론 프롬프트'). 그런 다음 이러한 프롬프트는 루프에서 번갈아 가며 여러 단계의 추론을 생성하고 결국 최종 답변에 도달합니다. 저자는 다음 그림에서 아이디어를 설명합니다.
+Antonia Creswell 등이 발표한 사고 사슬 기술의 한 가지 확장은 설명과 답변을 생성하기 위한 단일 프롬프트를 더 작은 부분으로 분할하는 것입니다. 첫째, 프롬프트는 텍스트에서 관련 사실 하위 집합을 선택합니다(`선택 프롬프트`). 그런 다음 두 번째 프롬프트가 선택된 사실에서 결론을 추론합니다(`추론 프롬프트`). 그런 다음 이러한 프롬프트는 루프에서 번갈아 가며 여러 단계의 추론을 생성하고 결국 최종 답변에 도달합니다. 저자는 다음 그림에서 아이디어를 설명합니다.
 
 [![선택-추론 프롬프트](images/selection-inference_fig1.png)
 <br>출처: *선택-추론: 해석 가능한 논리적 추론을 위한 대규모 언어 모델 활용* 작성자: Antonia Creswell et al. (2022)](https://arxiv.org/abs/2205.09712)
@@ -338,11 +338,11 @@ Antonia Creswell 등이 발표한 사고 사슬 기술의 한 가지 확장은 �
 
 #### 방법
 
-원래의 선택-추론 기술에서는 특수한 '선택' 및 '추론' 프롬프트가 번갈아 가며 사실을 선택하고 이러한 사실로부터 추론을 수행하며 일련의 추론 단계를 생성하기 위해 결합됩니다.
+원래의 선택-추론 기술에서는 특수한 `선택` 및 `추론` 프롬프트가 번갈아 가며 사실을 선택하고 이러한 사실로부터 추론을 수행하며 일련의 추론 단계를 생성하기 위해 결합됩니다.
 
 저자는 이 기술을 두 가지 추가 구성 요소로 확장합니다.
 
-첫째, 저자는 각 추론 단계 후에 지금까지의 추론이 질문에 답하기에 충분한지 묻는 '고지' 모델을 추가합니다. 그렇다면 모델이 최종 답변을 생성합니다.
+첫째, 저자는 각 추론 단계 후에 지금까지의 추론이 질문에 답하기에 충분한지 묻는 `고지` 모델을 추가합니다. 그렇다면 모델이 최종 답변을 생성합니다.
 
 고삐 모델은 다음과 같은 몇 가지 이점을 제공합니다.
 
@@ -369,12 +369,12 @@ Antonia Creswell 등이 발표한 사고 사슬 기술의 한 가지 확장은 �
 
 저자는 ProofWriter 작업(표시되지 않음) 및 [EntailmentBankQA](https://allenai.org/data/entailmentbank)(표시됨)의 두 가지 벤치마크에서 기술을 평가했습니다. 이 기술은 특히 더 어려운 추론 문제에서 정확도를 크게 높였습니다.
 
-![성실한 추론](images/faithful-reasoning_tab2.png)
+[![성실한 추론](images/faithful-reasoning_tab2.png)
 <br>출처: *대규모 언어 모델을 사용한 충실한 추론* 작성자: Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
 
 또한 그들의 문장 레이블 조작 트릭은 본질적으로 환각을 제거했습니다!
 
-![성실한 추론](images/faithful-reasoning_tab5.png)
+[![성실한 추론](images/faithful-reasoning_tab5.png)
 <br>출처: *대규모 언어 모델을 사용한 충실한 추론* 작성자: Antonia Creswell et al. (2022)](https://arxiv.org/abs/2208.14271)
 
 #### 시사점
@@ -387,7 +387,7 @@ Antonia Creswell 등이 발표한 사고 사슬 기술의 한 가지 확장은 �
 - 모델이 말할 수 있는 것을 제한하여 환각을 줄입니다(예: 문장 대신 문장 레이블 사용).
 - 특화된 작업에 따라 모델을 미세 조정하여 모델 성능 극대화
 
-자세한 내용은 [전체 문서](https://arxiv.org/abs/2205.09712)를 참조하십시오.
+자세한 내용은 [전체 논문](https://arxiv.org/abs/2205.09712)를 참조하십시오.
 
 ### 최소에서 최대 프롬프트
 
@@ -416,7 +416,7 @@ Least-to-Most 프롬프트는 추론 작업을 더 작고 더 신뢰할 수 있�
 
 그럼에도 불구하고 공통 주제를 보여줍니다. (a) 복잡한 작업을 더 작은 하위 작업으로 나누고 (b) 답을 찾기 위해 모델에 더 많은 시간과 공간을 제공하여 안정성을 높입니다.
 
-자세한 내용은 [전체 문서](https://arxiv.org/abs/2205.10625)를 참조하십시오.
+자세한 내용은 [전체 논문](https://arxiv.org/abs/2205.10625)를 참조하십시오.
 
 ## 관련 아이디어
 
@@ -435,7 +435,7 @@ Least-to-Most 프롬프트는 추론 작업을 더 작고 더 신뢰할 수 있�
   - 설명이 논리적으로 통합되지 않은 경우 각 설명이 참 또는 거짓 질문으로 바뀌면서 위의 과정을 재귀적으로 반복하고 각각의 새로운 질문에 대해 더 많은 설명을 생성합니다.
   - 모든 재귀적 설명이 끝나면 설명 트리로 끝납니다. 여기서 트리의 각 리프에는 설명을 뒤집으면 모델의 대답이 뒤집히는 속성이 있습니다.
 - 둘째, 트리를 관계 그래프로 변환합니다.
-  - 트리의 각 노드에 대해 각 노드에 대한 모델의 상대적 신뢰도를 계산합니다(주어진 설명에 대해 'True' 응답을 얻을 확률에서 유추).
+  - 트리의 각 노드에 대해 각 노드에 대한 모델의 상대적 신뢰도를 계산합니다(주어진 설명에 대해 `True` 응답을 얻을 확률에서 유추).
   - 트리의 각 노드 쌍에 대해 모델을 사용하여 수반(암시) 또는 모순 여부를 식별합니다.
 - 셋째, 가장 일관된 믿음을 찾고 그것을 사실로 받아들입니다.
   - 구체적으로 각 노드에 대한 믿음의 강도와 노드 간의 논리적 관계를 사용하여 문제를 가중 최대 만족 문제(MAX-SAT)로 공식화합니다.
