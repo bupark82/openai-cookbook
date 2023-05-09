@@ -25,7 +25,7 @@ A:
 There are 8 blue golf balls.
 ```
 
-Does this mean that GPT-3 cannot do simple math problems? No; in fact, it turns out that by prompting the model with `Let's think step by step`, the model solves the problem reliably:
+이것은 GPT-3가 간단한 수학 문제를 풀 수 없다는 것을 의미합니까? 아니요; 사실, '단계적으로 생각하자'라는 모델을 제시함으로써 모델이 안정적으로 문제를 해결한다는 것이 밝혀졌습니다.:
 
 ```text-davinci-002
 Q: A juggler has 16 balls. Half of the balls are golf balls and half of the golf balls are blue. How many blue golf balls are there?
